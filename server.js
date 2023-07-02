@@ -12,7 +12,7 @@ app.get('/tasks', (req, res) => {
     fs.readFile('tasks.json', 'utf8', (err, data) => {
         if (err) {
             console.error(err);
-            return res.status(500).json({ error: 'Internal Server Error' });
+            return res.status(500).json({ error: 'ERROR DE SERVIDOR' });
         }
         
         res.json(JSON.parse(data));
@@ -24,7 +24,7 @@ app.post('/tasks', (req, res) => {
     fs.readFile('tasks.json', 'utf8', (err, data) => {
         if (err) {
             console.error(err);
-            return res.status(500).json({ error: 'Internal Server Error' });
+            return res.status(500).json({ error: 'ERROR DE SERVIDOR' });
         }
         
         const tasks =JSON.parse(data);
@@ -34,10 +34,10 @@ app.post('/tasks', (req, res) => {
         fs.writeFile('tasks.json', JSON.stringify(tasks), 'utf8', (err) => {
             if (err) {
                 console.error(err);
-                return res.status(500).json({ error: 'Internal Server Error' });
+                return res.status(500).json({ error:  'ERROR DE SERVIDOR' });
             }
             
-            res.json({ message: 'Task added successfully' });
+            res.json({ message: 'TAREA ADICIONADA' });
         });
     });
     
@@ -50,14 +50,14 @@ const updatedTask = req.body;
 fs.readFile('tasks.json', 'utf8', (err, data) => {
     if (err) {
         console.error(err);
-        return res.status(500).json({ error: 'Internal Server Error' });
+        return res.status(500).json({ error:  'ERROR DE SERVIDOR' });
     }
 
     const tasks = JSON.parse(data);
     const taskIndex = tasks.findIndex(task => task.id === taskId);
 
     if (taskIndex === -1) {
-        return res.status(404).json({ error: 'Task not found' });
+        return res.status(404).json({ error: 'TAREA PERDIDA' });
     }
 
     tasks[taskIndex] = { ...tasks[taskIndex], ...updatedTask };
@@ -65,10 +65,10 @@ fs.readFile('tasks.json', 'utf8', (err, data) => {
     fs.writeFile('tasks.json', JSON.stringify(tasks), 'utf8', (err) => {
         if (err) {
             console.error(err);
-            return res.status(500).json({ error: 'Internal Server Error' });
+            return res.status(500).json({ error:  'ERROR DE SERVIDOR' });
         }
 
-        res.json({ message: 'Task updated successfully' });
+        res.json({ message: 'TAREA ACTUALIZADA' });
     });
 });
 });
@@ -79,23 +79,23 @@ const taskId = req.params.id;
 fs.readFile('tasks.json', 'utf8', (err, data) => {
     if (err) {
         console.error(err);
-        return res.status(500).json({ error: 'Internal Server Error' });
+        return res.status(500).json({ error:  'ERROR DE SERVIDOR' });
     }
 
     const tasks = JSON.parse(data);
     const updatedTasks = tasks.filter(task => task.id !== taskId);
 
     if (tasks.length === updatedTasks.length) {
-        return res.status(404).json({ error: 'Task not found' });
+        return res.status(404).json({ error: 'TAREA PERDIDA' });
     }
 
     fs.writeFile('tasks.json', JSON.stringify(updatedTasks), 'utf8', (err) => {
         if (err) {
             console.error(err);
-            return res.status(500).json({ error: 'Internal Server Error' });
+            return res.status(500).json({ error:  'ERROR DE SERVIDOR' });
         }
 
-        res.json({ message: 'Task deleted successfully' });
+        res.json({ message: 'ADICIONADA' });
     });
 });
 });
